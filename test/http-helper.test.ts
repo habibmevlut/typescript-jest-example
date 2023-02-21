@@ -54,9 +54,9 @@ describe("Update one todo (PUT /todo)", () => {
     beforeAll(async () => {
         await request(baseURL).post("/todo").send(newTodo);
     })
-    // afterAll(async () => {
-    //     await request(baseURL).delete(`/todo/${newTodo.id}`)
-    // })
+    afterAll(async () => {
+        await request(baseURL).delete(`/todo/${newTodo.id}`)
+    })
     it("should update item if it exists", async () => {
         const response = await request(baseURL).put(`/todos/${newTodo.id}`)
             .send({completed: true});
@@ -65,21 +65,21 @@ describe("Update one todo (PUT /todo)", () => {
     });
 });
 
-// describe("Delete one todo", () => {
-//     const newTodo = {
-//         id: 1100,
-//         item: "Habib Mevlüt",
-//         completed: false,
-//     }
-//     beforeAll(async () => {
-//         await request(baseURL).post("/todo").send(newTodo);
-//     })
-//     it("should delete one item", async () => {
-//         const response = await request(baseURL).delete(`/todos/2`);
-//         const todos = response.body.data
-//         const exists = todos.find(todo => {
-//             newTodo.id === todo.id
-//         })
-//         expect(exists).toBe(undefined)
-//     });
-// });
+describe("Delete one todo", () => {
+    const newTodo = {
+        id: 1100,
+        item: "Habib Mevlüt",
+        completed: false,
+    }
+    beforeAll(async () => {
+        await request(baseURL).post("/todo").send(newTodo);
+    })
+    it("should delete one item", async () => {
+        const response = await request(baseURL).delete(`/todos/2`);
+        const todos = response.body.data
+        const exists = todos.find(todo => {
+            newTodo.id === todo.id
+        })
+        expect(exists).toBe(undefined)
+    });
+});
