@@ -24,10 +24,75 @@ export function prepareEnumKeyValueForScreen<T>(value: T): T[] {
 
 /**
  *
- * @param val1
- * @param val2
+ * @param enumKeys
+ * @param enumClass
  */
-export function getEnumKeyByValue<T>(val1: T, val2: T): string {
-    const returnedItem: Array<any> = Object.entries(val1).filter(a => (a[1] === val2));
+export function prepareEnumKeyValueForScreenByEnums(enumKeys: Array<any>, enumClass: any): Array<any> {
+    const enumArray = new Array<any>();
+    for (const key of enumKeys) {
+        enumArray.push({value: key, viewValue: enumClass[key]});
+    }
+    return enumArray;
+}
+
+/**
+ *
+ * @param source
+ * @param value
+ */
+export function getKeyByValue<T>(source: T, value: T): string {
+    const returnedItem: Array<any> = Object.entries(source).filter(a => (a[1] === value));
     return returnedItem.length > 0 ? returnedItem[0][0] : null;
+}
+
+/**
+ *
+ * @param _enum
+ */
+export function parseEnum(_enum: any) {
+    const allValues: (string | number)[] = Object.values(_enum);
+    const properties: string[] = allValues.slice(0, allValues.length / 2) as string[];
+    const values: (string | number)[] = allValues.slice(allValues.length / 2);
+    const enumObj: Record<string, number | string> = {};
+
+    properties.forEach((prop, index) => {
+        enumObj[prop] = values[index];
+    });
+
+    return enumObj;
+}
+
+/**
+ * It returns name and values of enum as an object in array
+ * export enum StringEnum {
+ *     ONE,
+ *     TWO,
+ * }
+ * getEnumNamesAndValues(StringEnum) => [{name: 'ONE', value: 0}, {name: 'TWO', value: 1}];
+ * @param _enum
+ */
+export function getEnumNamesAndValues<T extends (number | string)>(_enum: any) {
+    const obj = parseEnum(_enum);
+    return Object.keys(obj).map(n => ({name: n, value: obj[n] as T}));
+}
+
+/**
+ * It returns keys(names) of enum in array
+ * export enum StringEnum {
+ *     ONE = "one",
+ *     TWO = "two",
+ * }
+ * getEnumNames(StringEnum) => ['ONE', 'TWO'];
+ * @param _enum
+ */
+export function getEnumNames(_enum: any) {
+    if (Object.keys(_enum).length > 0)
+        return Object.keys(_enum) as string[];
+    return Object.keys(parseEnum(_enum)) as string[];
+}
+
+export function getEnumValues<T extends (number | string)>(_enum: any) {
+    if (Object.keys(_enum).length > 0)
+        return Object.values(_enum) as T[];
+    return Object.values(parseEnum(_enum)) as T[];
 }
