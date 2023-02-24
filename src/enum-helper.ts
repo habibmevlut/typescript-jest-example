@@ -40,7 +40,7 @@ export function prepareEnumKeyValueForScreenByEnum(enumKeys: Array<any>, enumCla
  * @param source
  * @param value
  */
-export function getKeyByValue<T>(source: T, value: string): string {
+export function getEnumKeyByValue<T>(source: T, value: string): string {
     const returnedItem: Array<any> = Object.entries(source).filter(a => (a[1] === value));
     return returnedItem.length > 0 ? returnedItem[0][0] : null;
 }
@@ -101,6 +101,11 @@ export function getEnumValues<T extends (number | string)>(_enum: any) {
     return Object.values(parseEnum(_enum)) as T[];
 }
 
+/**
+ * It checks the given value is exist in enumObj or not.
+ * @param enumObj
+ * @param value
+ */
 export function isEnumValue(enumObj, value) {
     return Object.values(enumObj).includes(value);
 }

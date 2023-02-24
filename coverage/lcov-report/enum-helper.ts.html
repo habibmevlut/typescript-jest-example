@@ -317,7 +317,7 @@ export function prepareEnumKeyValueForScreenByEnum(enumKeys: Array&lt;any&gt;, e
  * @param source
  * @param value
  */
-export function getKeyByValue&lt;T&gt;(source: T, value: string): string {
+export function getEnumKeyByValue&lt;T&gt;(source: T, value: string): string {
     const returnedItem: Array&lt;any&gt; = Object.entries(source).filter(a =&gt; (a[1] === value));
     return returnedItem.length &gt; 0 ? returnedItem[0][0] : null;
 }
@@ -400,4 +400,3 @@ export function isEnumValue(enumObj, value) {
         <script src="block-navigation.js"></script>
     </body>
 </html>
-    

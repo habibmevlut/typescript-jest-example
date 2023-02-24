@@ -2,7 +2,7 @@ import {
     getEnumKeyValueAsMap,
     getEnumNamesAndValues,
     getEnumValues,
-    getKeyByValue,
+    getEnumKeyByValue,
     isEnumValue,
     parseEnum, prepareEnumKeyValueForScreen, prepareEnumKeyValueForScreenByEnum
 } from "../src/enum-helper";
@@ -73,14 +73,14 @@ describe('prepareEnumKeyValueForScreenByEnum', () => {
     });
 })
 
-describe('getKeyByValue', () => {
+describe('getEnumKeyByValue', () => {
     test('returns the key for a given value in an object', () => {
-        const result = getKeyByValue(TestEnum, 'two');
+        const result = getEnumKeyByValue(TestEnum, 'two');
         expect(result).toBe('B');
     });
 
     test('returns null if the value is not found in the object', () => {
-        const result = getKeyByValue(TestEnum, 'four');
+        const result = getEnumKeyByValue(TestEnum, 'four');
         expect(result).toBe(null);
     });
 });
@@ -107,10 +107,10 @@ describe('getEnumNamesAndValues', () => {
     });
 });
 
-describe("test getKeyByValue enum helper method", () => {
-    test("should return a value for getKeyByValue(source, value)", () => {
+describe("test getEnumKeyByValue enum helper method", () => {
+    test("should return a value for getEnumKeyByValue(source, value)", () => {
         // @ts-ignore
-        return expect(getKeyByValue(StringEnum, 'one')).toBe('ONE');
+        return expect(getEnumKeyByValue(StringEnum, 'one')).toBe('ONE');
     });
 
 });

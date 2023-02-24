@@ -20,7 +20,7 @@ SF:src/enum-helper.ts
 FN:5,getEnumKeyValueAsMap
 FN:17,prepareEnumKeyValueForScreen
 FN:30,prepareEnumKeyValueForScreenByEnum
-FN:43,getKeyByValue
+FN:43,getEnumKeyByValue
 FN:44,(anonymous_4)
 FN:52,parseEnum
 FN:58,(anonymous_6)
@@ -34,7 +34,7 @@ FNH:11
 FNDA:1,getEnumKeyValueAsMap
 FNDA:1,prepareEnumKeyValueForScreen
 FNDA:1,prepareEnumKeyValueForScreenByEnum
-FNDA:3,getKeyByValue
+FNDA:3,getEnumKeyByValue
 FNDA:13,(anonymous_4)
 FNDA:2,parseEnum
 FNDA:6,(anonymous_6)
