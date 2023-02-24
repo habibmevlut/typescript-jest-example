@@ -27,7 +27,7 @@ export function prepareEnumKeyValueForScreen<T>(value: T): T[] {
  * @param enumKeys
  * @param enumClass
  */
-export function prepareEnumKeyValueForScreenByEnums(enumKeys: Array<any>, enumClass: any): Array<any> {
+export function prepareEnumKeyValueForScreenByEnum(enumKeys: Array<any>, enumClass: any): Array<any> {
     const enumArray = new Array<any>();
     for (const key of enumKeys) {
         enumArray.push({value: key, viewValue: enumClass[key]});
@@ -40,7 +40,7 @@ export function prepareEnumKeyValueForScreenByEnums(enumKeys: Array<any>, enumCl
  * @param source
  * @param value
  */
-export function getKeyByValue<T>(source: T, value: T): string {
+export function getKeyByValue<T>(source: T, value: string): string {
     const returnedItem: Array<any> = Object.entries(source).filter(a => (a[1] === value));
     return returnedItem.length > 0 ? returnedItem[0][0] : null;
 }
@@ -91,8 +91,16 @@ export function getEnumNames(_enum: any) {
     return Object.keys(parseEnum(_enum)) as string[];
 }
 
+/**
+ *
+ * @param _enum
+ */
 export function getEnumValues<T extends (number | string)>(_enum: any) {
     if (Object.keys(_enum).length > 0)
         return Object.values(_enum) as T[];
     return Object.values(parseEnum(_enum)) as T[];
+}
+
+export function isEnumValue(enumObj, value) {
+    return Object.values(enumObj).includes(value);
 }
