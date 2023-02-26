@@ -1,85 +1,56 @@
-const request = require("supertest")
-const baseURL = "http://localhost:3000"
+import { createUser, deleteUser, getUser, updateUser } from "../src/http-call";
 
-describe("GET /todos", () => {
-    const newTodo = {
-        id: 2,
-        item: "Drink water",
-        completed: false,
-    }
-    beforeAll(async () => {
-        await request(baseURL).post("/todo").send(newTodo);
-    })
+describe('httpRequest', () => {
+    const url = 'https://jsonplaceholder.typicode.com/posts';
+    const post = {id: 1, name: 'Test123', email: 'test@gmail.com'};
 
-    afterAll(async () => {
-        await request(baseURL).delete(`/todo/${newTodo.id}`)
-    })
-
-    it("should return 200", async () => {
-        const response = await request(baseURL).get("/todos");
-        expect(response.statusCode).toBe(200);
-        expect(response.body.error).toBe(null);
+    describe('GET', () => {
+        it('should return data on successful GET request', async () => {
+            const response = getUser(1);
+            // @ts-ignore
+            expect(response?.status).toBe(200);
+            // @ts-ignore
+            expect(response?.data?.length).toBeGreaterThan(0);
+        });
     });
 
-    it("should return todos", async () => {
-        const response = await request(baseURL).get("/todos");
-        expect(response.body.data.length >= 1).toBe(true);
-    });
-});
+    describe('POST', () => {
+        it('should return the created data on successful POST request', async () => {
 
-describe("POST /todo", () => {
-    const newTodo = {
-        id: 10,
-        item: "Drink water",
-        completed: false,
-    }
-    afterAll(async () => {
-        await request(baseURL).delete(`/todo/${newTodo.id}`)
-    })
-    it("should add an item to todos array", async () => {
-        const response = await request(baseURL).post("/todo").send(newTodo);
-        const lastItem = response.body.data[response.body.data.length - 1];
-        expect(response.statusCode).toBe(201);
-        expect(lastItem.item).toBe(newTodo["item"]);
-        expect(lastItem.completed).toBe(newTodo["completed"]);
+            const response = await createUser(post);
+            expect(response.status).toBe(201);
+            // @ts-ignore
+            expect(response.data?.title).toEqual(post.title);
+            // @ts-ignore
+            expect(response.data.body).toEqual(post.body);
+            // @ts-ignore
+            expect(response.data.userId).toEqual(post.userId);
+        });
     });
-});
 
-describe("Update one todo (PUT /todo)", () => {
-    const newTodo = {
-        id: 1100,
-        item: "Habib Mevlüt",
-        completed: false,
-    }
-    beforeAll(async () => {
-        await request(baseURL).post("/todo").send(newTodo);
-    })
-    afterAll(async () => {
-        await request(baseURL).delete(`/todo/${newTodo.id}`)
-    })
-    it("should update item if it exists", async () => {
-        const response = await request(baseURL).put(`/todos/${newTodo.id}`)
-            .send({completed: true});
-        expect(response.statusCode).toBe(201);
-        expect(response.body.data.completed).toBe(true);
+    describe('PUT', () => {
+        it('should update the data on successful PUT request', async () => {
+            const putUrl = `${url}/1`;
+            const updatedPost = {id: 1, name: 'Test123123123', email: 'test@gmail.com'};
+            const response = await updateUser(updatedPost);
+            expect(response.status).toBe(200);
+            // @ts-ignore
+            expect(response.data.title).toEqual(updatedPost.title);
+            // @ts-ignore
+            expect(response.data.body).toEqual(updatedPost.body);
+            // @ts-ignore
+            expect(response.data.userId).toEqual(updatedPost.userId);
+        });
     });
-});
 
-describe("Delete one todo", () => {
-    const newTodo = {
-        id: 1100,
-        item: "Habib Mevlüt",
-        completed: false,
-    }
-    beforeAll(async () => {
-        await request(baseURL).post("/todo").send(newTodo);
-    })
-    it("should delete one item", async () => {
-        const response = await request(baseURL).delete(`/todos/2`);
-        const todos = response.body.data
-        const exists = todos.find(todo => {
-            newTodo.id === todo.id
-        })
-        expect(exists).toBe(undefined)
+    describe('DELETE', () => {
+        it('should delete the data on successful DELETE request', async () => {
+            const id = 1;
+            const response = await deleteUser(id);
+            // @ts-ignore
+            expect(response.status).toBe(200);
+            // @ts-ignore
+            expect(response.data).toEqual({});
+        });
     });
 });

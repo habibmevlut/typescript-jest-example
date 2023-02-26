@@ -1,34 +1,38 @@
-const express = require("express")
-const app = express()
-app.listen(3000, () => console.log("Listening at port 3000"))
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+export async function makeHttpRequest<T>(
+    requestConfig: AxiosRequestConfig
+): Promise<AxiosResponse<T>> {
+    const response = await axios(requestConfig);
+    return response.data;
+}
 
-const todos = [];
-// Get all todos
-app.get("/todos", (req, res) => {
-    return res.status(200).json({
-        data: todos,
-        error: null,
+export async function httpGet<T>(url: string): Promise<AxiosResponse<T>> {
+    return await makeHttpRequest<T>({
+        method: 'GET',
+        url: url,
     });
-});
+}
 
-app.post("/todo", (req, res) => {
-    try {
-        const {id, item, completed} = req.body;
-        const newTodo = {
-            id,
-            item,
-            completed,
-        };
-        todos.push(newTodo);
-        return res.status(201).json({
-            data: todos,
-            error: null,
-        });
-    } catch (error) {
-        return res.status(500).json({
-            data: null,
-            error: error,
-        });
-    }
-});
+export async function httpPost<T>(url: string, data?: any): Promise<AxiosResponse<T>> {
+    return await makeHttpRequest<T>({
+        method: 'POST',
+        url: url,
+        data: data,
+    });
+}
+
+export async function httpPut<T>(url: string, data?: any): Promise<AxiosResponse<T>> {
+    return await makeHttpRequest<T>({
+        method: 'PUT',
+        url: url,
+        data: data,
+    });
+}
+
+export async function httpDelete<T>(url: string): Promise<AxiosResponse<T>> {
+    return await makeHttpRequest<T>({
+        method: 'DELETE',
+        url: url,
+    });
+}

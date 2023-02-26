@@ -1,5 +1,6 @@
 /**
- *
+ * It returns a map object from given enum.
+ * NOTE: key/value must be specified in enum class.
  * @param value
  */
 export function getEnumKeyValueAsMap<T>(value: T): Map<string, string> {
@@ -11,7 +12,8 @@ export function getEnumKeyValueAsMap<T>(value: T): Map<string, string> {
 }
 
 /**
- *
+ * It prepares an object and put in a array with *value and *viewValue properties from given enum.
+ * NOTE: key/value must be specified in enum class.
  * @param value
  */
 export function prepareEnumKeyValueForScreen<T>(value: T): T[] {
@@ -23,7 +25,8 @@ export function prepareEnumKeyValueForScreen<T>(value: T): T[] {
 }
 
 /**
- *
+ * It prepares an object and put in a array with *value and *viewValue properties from given enumKeys array and enumClass.
+ * NOTE: key/value must be specified in enum class.
  * @param enumKeys
  * @param enumClass
  */
@@ -36,7 +39,13 @@ export function prepareEnumKeyValueForScreenByEnum(enumKeys: Array<any>, enumCla
 }
 
 /**
- *
+ * It returns a value from source Enum by given key.
+ * enum StringEnum {
+ *     ONE = "one",
+ *     TWO = "two",
+ *     THREE = "three"
+ * }
+ * getEnumKeyByValue(StringEnum, 'one') => ONE
  * @param source
  * @param value
  */
@@ -46,7 +55,7 @@ export function getEnumKeyByValue<T>(source: T, value: string): string {
 }
 
 /**
- *
+ * Convert an enum to an object
  * @param _enum
  */
 export function parseEnum(_enum: any) {
@@ -77,7 +86,7 @@ export function getEnumNamesAndValues<T extends (number | string)>(_enum: any) {
 }
 
 /**
- * It returns keys(names) of enum in array
+ * It returns keys(names) of enum as a array
  * export enum StringEnum {
  *     ONE = "one",
  *     TWO = "two",
@@ -92,7 +101,12 @@ export function getEnumNames(_enum: any) {
 }
 
 /**
- *
+ * It returns value of enum in array
+ * export enum StringEnum {
+ *     ONE = "one",
+ *     TWO = "two",
+ * }
+ * getEnumValues(StringEnum) => ['one', 'two'];
  * @param _enum
  */
 export function getEnumValues<T extends (number | string)>(_enum: any) {
@@ -103,6 +117,7 @@ export function getEnumValues<T extends (number | string)>(_enum: any) {
 
 /**
  * It checks the given value is exist in enumObj or not.
+ * If it is existed in enum return true.
  * @param enumObj
  * @param value
  */
