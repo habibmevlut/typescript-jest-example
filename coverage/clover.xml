@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1678436440657" clover="3.2.0">
-  <project timestamp="1678436440657" name="All files">
+<coverage generated="1678713301656" clover="3.2.0">
+  <project timestamp="1678713301656" name="All files">
     <metrics statements="79" coveredstatements="43" conditionals="12" coveredconditionals="4" methods="24" coveredmethods="10" elements="115" coveredelements="57" complexity="0" loc="79" ncloc="79" packages="1" files="4" classes="4"/>
     <file name="calc.ts" path="/home/habib/OwnProjects/typescript-jest-example/src/calc.ts">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
