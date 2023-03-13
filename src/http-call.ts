@@ -1,33 +1,48 @@
-import { httpDelete, httpGet, httpPost, httpPut } from "./http-helper";
-import { AxiosResponse } from "axios";
+import { del, get, post, put } from "./http-helper";
 
-interface User {
+export interface User {
     id: number;
     name: string;
     email: string;
+    pone?: string;
 }
 
-export interface IResponseResult {
-    data: User[];
-    status: number;
+export interface IUserInput {
+    name: string;
+    email: string;
+    phone?: string;
 }
 
-export async function getUser(id: number): Promise<AxiosResponse<User>> {
-    return await httpGet<User>(`https://jsonplaceholder.typicode.com/users${id}`);
+export interface Post {
+    userId: number;
+    id: number;
+    title: string;
+    body: string;
 }
 
-export async function getUsers(): Promise<AxiosResponse<User[]>> {
-    return await httpGet<User[]>('https://jsonplaceholder.typicode.com/users');
+export async function fetchPosts(): Promise<Post[]> {
+    const url = "https://jsonplaceholder.typicode.com/posts";
+    return await get<Post[]>(url);
 }
 
-export async function createUser(user: User): Promise<AxiosResponse<User>> {
-    return await httpPost<User>('https://jsonplaceholder.typicode.com/users', user);
+export async function getUser(id: number): Promise<User> {
+    const url = `https://jsonplaceholder.typicode.com/users/${id}`;
+    return await get<User>(url);
 }
 
-export async function updateUser(userInput: User): Promise<AxiosResponse<User>> {
-    return await httpPut<User>(`https://jsonplaceholder.typicode.com/users/${userInput.id}`, userInput);
+export async function getUsers(): Promise<User[]> {
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    return await get<User[]>(url);
 }
 
-export async function deleteUser(id: number) {
-    await httpDelete<void>(`https://jsonplaceholder.typicode.com/users/${id}`);
+export async function createUser(user: IUserInput): Promise<IUserInput> {
+    return await post<User>('https://jsonplaceholder.typicode.com/users', user)
+}
+
+export async function updateUser(user: User): Promise<User> {
+    return await put<User>(`https://jsonplaceholder.typicode.com/users/${user.id}`, user);
+}
+
+export async function deleteUser(userId: number): Promise<void> {
+    return await del(`https://jsonplaceholder.typicode.com/users/${userId}`);
 }
